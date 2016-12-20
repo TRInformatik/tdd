@@ -2,29 +2,35 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
-
 import org.junit.Test;
 
-import bookingSystem.DataManager;
 import bookingSystem.Kunde;
 import bookingSystem.Service;
 
 public class TestService {
-	
-	@Test
-	public void test() {
 
-	}
-	
-	
+	private Kunde k;
+
+	private Service service = new Service();
 	
 	@Test
-	public void printAllCustomer(){
-		DataManager dataManager = new DataManager();
-		HashMap<String, Kunde> customerList = dataManager.getCustomerList();
-		for(String key : customerList.keySet()){
-			System.out.println(customerList.get(key).getFirstName()+"\t"+customerList.get(key).getLastName()+"\t"+customerList.get(key).getAddress());
-		}
+	public void createCustomer() {
+		k = service.createCustomer("Max", "Mustermann", "Musterstraße 1, 39878 Musterstadt");
+		assertNotNull(k);
+		assertEquals("Max", k.getFirstName());
+		assertEquals("Mustermann", k.getLastName());
+		assertEquals("Musterstraße 1, 39878 Musterstadt", k.getAddress());
 	}
+	
+	@Test
+	public void storeCustomer(){
+		service.storeCustomer(new Kunde("Max", "Mustermann-Mayer", "Musterstraße 1, 39878 Musterstadt"));
+	}
+	
+	@Test
+	public void printCustomers(){
+		service.printAllCustomers();
+	}
+	
+	
 }
