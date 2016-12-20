@@ -32,7 +32,7 @@ public class TestKunde {
 		lastName = k.getLastName();
 		assertEquals("Christian", firstName);
 		assertEquals("Vogel", lastName);
-		
+		////
 		
 		
 		
