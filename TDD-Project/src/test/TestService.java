@@ -32,5 +32,10 @@ public class TestService {
 		service.printAllCustomers();
 	}
 	
+	@Test
+	public void printEvents(){
+		service.printAllEvents();
+	}
+	
 	
 }
