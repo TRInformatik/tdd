@@ -56,8 +56,9 @@ public class TestDataManager {
 		assertEquals("Macke", christiane.getLastName());
 		assertEquals("Neue Straße1, 4711, Köln", christiane.getAddress());
 		
-	}@Test
+	}
 	
+	@Test
 	public void testBooking() throws ParseException {
 
 		// The customer to store
@@ -89,6 +90,8 @@ public class TestDataManager {
 		
 		
 	}
+	
+	@Test
 	public void testEvent() throws ParseException {
 
 		// The customer to store
@@ -112,17 +115,17 @@ public class TestDataManager {
 		
 		
 		Buchung bt1 = bookingList.get(b1.getID());
-		assertEquals(bt1.getClass(), Veranstaltung.class);
+		assertEquals(bt1.getClass(), Buchung.class);
 		assertEquals(v3.getID(), bt1.getVeranstaltung());
 		assertEquals(k1.getFirstName(), bt1.getKunde());
 		assertEquals(b1.getBookedSeats(), bt1.getBookedSeats());
 		
 		
 		Buchung bt2 = bookingList.get(b2.getID());
-		assertEquals(bt2.getClass(), Veranstaltung.class);
+		assertEquals(bt2.getClass(), Buchung.class);
 		assertEquals(v2.getID(), bt2.getVeranstaltung());
 		assertEquals(k1.getFirstName(), bt2.getKunde());
-		assertEquals(v2.getSeats(), bt2.getBookedSeats());
+		assertEquals(b2.getBookedSeats(), bt2.getBookedSeats());
 		
 		
 	}

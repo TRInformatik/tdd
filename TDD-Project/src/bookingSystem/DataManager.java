@@ -84,6 +84,25 @@ public class DataManager {
 			e.printStackTrace();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public HashMap<Integer, Buchung> getBookingList() {
+		HashMap<Integer, Buchung> bookingList = null;
+		FileInputStream fileInputStream = null;
+		ObjectInputStream objectInputStream = null;
+		try {
+			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
+		fileInputStream = new FileInputStream(pathToLists+"/"+BOOKING_LIST_NAME);
+		objectInputStream = new ObjectInputStream(fileInputStream);
+		bookingList = (HashMap<Integer, Buchung>) objectInputStream.readObject();
+		objectInputStream.close();
+		fileInputStream.close();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
+		return bookingList;
+	}
 
 	public void storeBookingList(HashMap<Integer, Buchung> bookingList) {
 		FileOutputStream fileOutputStream = null;
