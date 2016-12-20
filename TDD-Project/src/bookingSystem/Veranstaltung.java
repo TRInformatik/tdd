@@ -1,12 +1,13 @@
 package bookingSystem;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Veranstaltung {
+public class Veranstaltung implements Serializable {
 
 	static AtomicInteger nextId = new AtomicInteger();
 	private int id;
@@ -18,7 +19,8 @@ public class Veranstaltung {
 	private Date dateTime;
 	
 	public Veranstaltung(String title, String dateTime, double ticketPrice, int seats) throws ParseException {
-		this.id = nextId.incrementAndGet();this.title = title;
+		this.id = nextId.incrementAndGet();
+		this.title = title;
 		this.dateTime = dfmt.parse(dateTime);
 		this.ticketPrice = ticketPrice;
 		this.seats = seats;
