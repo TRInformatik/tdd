@@ -8,18 +8,6 @@ public class Kunde implements Serializable{
 	
 	private String firstName, lastName, address;
 
-	public Kunde(String firstName) {
-		setFirstName(firstName);
-	}
-
-	public Kunde() {
-	}
-
-	public Kunde(String firstName, String lastName) {
-		setFirstName(firstName);
-		setLastName(lastName);
-	}
-
 	public Kunde(String firstName, String lastName, String address) {
 		setFirstName(firstName);
 		setLastName(lastName);
