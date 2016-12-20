@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
+import java.util.HashMap;
 
 public class DataManager {
 	private static final String FILE_PATH = "src/DataFiles/";
@@ -16,15 +16,15 @@ public class DataManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Kunde> getCustomerList() {
-		List<Kunde> customerList = null;
+	public HashMap<String, Kunde> getCustomerList() {
+		HashMap<String, Kunde> customerList = null;
 		FileInputStream fileInputStream = null;
 		ObjectInputStream objectInputStream = null;
 		try {
 			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
 		fileInputStream = new FileInputStream(pathToLists+"/"+CUSTOMER_LIST_NAME);
 		objectInputStream = new ObjectInputStream(fileInputStream);
-		customerList = (List<Kunde>) objectInputStream.readObject();
+		customerList = (HashMap<String, Kunde>) objectInputStream.readObject();
 		objectInputStream.close();
 		fileInputStream.close();
 		
@@ -34,7 +34,7 @@ public class DataManager {
 		return customerList;
 	}
 	
-	public void storeCustomerList(List<Kunde> customerList){
+	public void storeCustomerList(HashMap<String, Kunde> customerList){
 		FileOutputStream fileOutputStream = null;
 		ObjectOutputStream objectOutputStream = null;
 		try {
