@@ -1,8 +1,12 @@
 package bookingSystem;
 
-public class Kunde {
+import java.io.Serializable;
 
-	private String firstName, lastName;
+public class Kunde implements Serializable{
+
+	private static final long serialVersionUID = -4408648319826143894L;
+	
+	private String firstName, lastName, address;
 
 	public Kunde(String firstName) {
 		setFirstName(firstName);
@@ -12,19 +16,26 @@ public class Kunde {
 	}
 
 	public Kunde(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+		setFirstName(firstName);
+		setLastName(lastName);
+	}
 
+	public Kunde(String firstName, String lastName, String address) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setAddress(address);
 	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-
 	}
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;	
 	}
 
 	public String getFirstName() {
@@ -33,6 +44,10 @@ public class Kunde {
 
 	public String getLastName() {
 		return lastName;
+	}
+
+	public String getAddress() {
+		return address;
 	}
 
 }
