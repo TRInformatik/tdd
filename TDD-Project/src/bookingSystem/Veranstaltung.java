@@ -4,24 +4,27 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Veranstaltung {
 
+	static AtomicInteger nextId = new AtomicInteger();
+	private int id;
 	private String title;
 	private int seats;
 	private int freeSeats;
 	private double ticketPrice;
-	DateFormat dfmt = new SimpleDateFormat( "dd.MM.yyyy HH:mm" );
+	private DateFormat dfmt = new SimpleDateFormat( "dd.MM.yyyy HH:mm" );
 	private Date dateTime;
 	
 	public Veranstaltung(String title, String dateTime, double ticketPrice, int seats) throws ParseException {
-		this.title = title;
+		this.id = nextId.incrementAndGet();this.title = title;
 		this.dateTime = dfmt.parse(dateTime);
 		this.ticketPrice = ticketPrice;
 		this.seats = seats;
 		this.freeSeats = this.seats;
+		
 	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -48,6 +51,9 @@ public class Veranstaltung {
 	}
 	public int getFreeSeats() {
 		return freeSeats;
+	}
+	public int getID() {
+		return id;
 	}
 	
 }

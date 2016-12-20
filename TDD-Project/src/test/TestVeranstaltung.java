@@ -41,6 +41,11 @@ public class TestVeranstaltung {
 	}
 	
 	@Test
+	public void testID() throws ParseException{
+		System.out.println(v.getID()+", " + v2.getID() +", "+v3.getID());
+		System.out.println((new Veranstaltung("Silvester", "31.12.16 20:00", 5.0,100)).getID());
+	}
+	@Test
 	public void testBooking() throws Exception{
 		v.book(5);
 		v.book(13);
