@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import kunde.Kunde;
+import bookingSystem.Kunde;
 
 public class TestKunde {
 
@@ -21,8 +21,6 @@ public class TestKunde {
 		String lastName = k.getLastName();
 		assertEquals("Macke", lastName);
 		
-		
-		
 		k = new Kunde("Hermann");
 		firstName = k.getFirstName();
 		assertEquals("Hermann", firstName);
@@ -32,8 +30,7 @@ public class TestKunde {
 		lastName = k.getLastName();
 		assertEquals("Christian", firstName);
 		assertEquals("Vogel", lastName);
-		////
-		
+			
 		
 		
 	}

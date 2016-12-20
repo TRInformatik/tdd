@@ -1,4 +1,4 @@
-package kunde;
+package bookingSystem;
 
 public class Kunde {
 
