@@ -12,12 +12,15 @@ import bookingSystem.Veranstaltung;
 public class TestVeranstaltung {
 	
 	private static final double DELTA = 1e-15;
-		Veranstaltung v;
-		Veranstaltung v2; 
+	private Veranstaltung v;
+	private Veranstaltung v2; 
+	private Veranstaltung v3;
+		
 	@Before 
 	public void init() throws ParseException {
 		 v = new Veranstaltung("Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
 		 v2 = new Veranstaltung("Zytanien", "28.07.2017 16:00", 25.0, 1000);
+		 v3 = new Veranstaltung("Geburtstag", "05.06.2017 18:00", 0.0, 20);
 	}
 	@Test
 	public void testName() throws ParseException {
@@ -38,12 +41,23 @@ public class TestVeranstaltung {
 	}
 	
 	@Test
-	public void testBooking(){
+	public void testBooking() throws Exception{
 		v.book(5);
 		v.book(13);
 		v.book(2);
 		assertEquals(480, v.getFreeSeats());
 		assertEquals(500, v.getSeats());
+		
 	}
-
+	@Test(expected=Exception.class)
+	public void testBookToMuch() throws Exception {
+		v3.book(5);
+		v3.book(10);
+		try{
+		v3.book(10);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			throw e;
+		}
+	}
 }

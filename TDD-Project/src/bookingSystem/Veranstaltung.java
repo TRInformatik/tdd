@@ -38,12 +38,17 @@ public class Veranstaltung {
 		return dfmt.format(dateTime);
 	}
 
-	public void book(int bookedSeats) {
-		this.freeSeats -=bookedSeats;
+	public void book(int bookedSeats) throws Exception {
+		if(bookedSeats<=freeSeats){
+			this.freeSeats -=bookedSeats;
+		}else {
+			throw new Exception("There are too few free seats for your booking! You wanted to book "+bookedSeats+" seats, but there are only "+freeSeats+" free!");
+		}
 		
 	}
 	public int getFreeSeats() {
 		return freeSeats;
 	}
-
+	
 }
+
