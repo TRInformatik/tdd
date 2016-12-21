@@ -54,8 +54,8 @@ public class Service {
 
 	}
 
-	public Veranstaltung createVeranstaltung(String title, String date, double price, int seats) throws ParseException {
-		return new Veranstaltung(title, date, price, seats);
+	public Veranstaltung createVeranstaltung(int id, String title, String date, double price, int seats) throws ParseException {
+		return new Veranstaltung(id, title, date, price, seats);
 	}
 
 	public void storeVeranstaltung(Veranstaltung v) {

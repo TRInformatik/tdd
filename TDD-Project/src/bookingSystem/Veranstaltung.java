@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Veranstaltung implements Serializable {
 
-	static AtomicInteger nextId = new AtomicInteger();
-	
+	private static final long serialVersionUID = -3862786948644285639L;
+
 	private int id;
 	private String title;
 	private int seats;
@@ -19,8 +19,8 @@ public class Veranstaltung implements Serializable {
 	private DateFormat dfmt = new SimpleDateFormat( "dd.MM.yyyy HH:mm" );
 	private Date dateTime;
 	
-	public Veranstaltung(String title, String dateTime, double ticketPrice, int seats) throws ParseException {
-		this.id = nextId.incrementAndGet();
+	public Veranstaltung(int id, String title, String dateTime, double ticketPrice, int seats) throws ParseException {
+		this.id = id;
 		this.title = title;
 		this.dateTime = dfmt.parse(dateTime);
 		this.ticketPrice = ticketPrice;
