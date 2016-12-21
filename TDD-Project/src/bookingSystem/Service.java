@@ -70,35 +70,49 @@ public class Service {
 		return eventList.get(id).getFreeSeats();
 	}
 
-	public Buchung book(int id, String kundenName, int veranstaltungsID, int bookedSeats) throws Exception {
-		Buchung newBooking = new Buchung(id, kundenName, veranstaltungsID, bookedSeats);
+	public Buchung book(int id, Kunde kunde, Veranstaltung veranstaltung, int bookedSeats) throws Exception {
+		Buchung newBooking = new Buchung(id, kunde.getName(), veranstaltung.getID(), bookedSeats);
 		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
-		int freeSeats = eventList.get(newBooking.getVeranstaltung()).getFreeSeats();
-		if(freeSeats >=newBooking.getBookedSeats()){
-			
+		int freeSeats = eventList.get(veranstaltung.getID()).getFreeSeats();
+		
+		if(freeSeats >= bookedSeats){
 			HashMap<Integer, Buchung> bookingList = dataManager.getBookingList();
+			Buchung b = getBookings(kunde, veranstaltung);
 			
+			int i=-1;
+			if(b != null && bookingList!=null){
+				newBooking.addSeats(b.getBookedSeats());
+				for (int keyBook : bookingList.keySet()) {
+					if(keyBook == b.getID())
+						i = keyBook;
+				}
+				if(i>=0){
+					bookingList.remove(i, bookingList.get(i));
+				}
+			}
 			bookingList.put(newBooking.getID(), newBooking);
 			dataManager.storeBookingList(bookingList);
 		
-			eventList.get(newBooking.getVeranstaltung()).book(newBooking.getBookedSeats());
+			eventList.get(newBooking.getVeranstaltung()).book(bookedSeats);
 			dataManager.storeEventList(eventList);	
+			
 		}else{
 			throw new Exception("Too many bookings! You ordered" + newBooking.getBookedSeats() + " but there are ony "+freeSeats+" free!");
 		}
 		return newBooking;
 	}
 
-	public HashMap<Integer, Buchung> getBookings(Kunde k, Veranstaltung v) {
+	public Buchung getBookings(Kunde k, Veranstaltung v) {
 		HashMap<Integer, Buchung> bookingList = dataManager.getBookingList();
-		HashMap<Integer, Buchung> smallList = new HashMap<Integer, Buchung>();
 		Buchung b;
-		for(int key : bookingList.keySet()){
-			b = bookingList.get(key);
-			if(b.getKunde().equals(k.getName()) && b.getVeranstaltung()==v.getID())
-				smallList.put(key, b);
+		if(bookingList!=null){
+			for(int keyListing : bookingList.keySet()){
+				b = bookingList.get(keyListing);
+				if(b.getKunde().equals(k.getName()) && (b.getVeranstaltung()==v.getID()))
+					return b;
+			}
 		}
-		return smallList;
+		return null;
 	}
 	
 

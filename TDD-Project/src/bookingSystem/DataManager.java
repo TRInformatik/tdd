@@ -104,15 +104,19 @@ public class DataManager {
 			// check if file exists
 			if (!fileExists(BOOKING_LIST_NAME)) {
 				createNewFile(BOOKING_LIST_NAME);
+			}else{
+				fileInputStream = new FileInputStream(pathToLists + "/" + BOOKING_LIST_NAME);
+				objectInputStream = new ObjectInputStream(fileInputStream);
+				bookingList = (HashMap<Integer, Buchung>) objectInputStream.readObject();
+				objectInputStream.close();
+				fileInputStream.close();
 			}
-			fileInputStream = new FileInputStream(pathToLists + "/" + BOOKING_LIST_NAME);
-			objectInputStream = new ObjectInputStream(fileInputStream);
-			bookingList = (HashMap<Integer, Buchung>) objectInputStream.readObject();
-			objectInputStream.close();
-			fileInputStream.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if(bookingList==null){
+			bookingList = new HashMap<Integer, Buchung>();
 		}
 		return bookingList;
 	}

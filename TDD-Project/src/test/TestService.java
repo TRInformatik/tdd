@@ -2,9 +2,14 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import bookingSystem.Buchung;
@@ -13,12 +18,22 @@ import bookingSystem.Service;
 import bookingSystem.Veranstaltung;
 
 public class TestService {
-
+	private static final String FILE_PATH = "src/DataFiles/";
+	private static final String CUSTOMER_LIST_NAME = "Kunden";
+	private static final String EVENT_LIST_NAME = "Veranstaltung";
+	private static final String BOOKING_LIST_NAME = "Buchung";
+	
 	private Kunde k;
 	private Veranstaltung v;
 
 	private Service service = new Service();
 	
+	@Before
+	public void init(){
+		Files.deleteIfExists(Paths.get(FILE_PATH+"/"+CUSTOMER_LIST_NAME));
+		Files.deleteIfExists(Paths.get(FILE_PATH+"/"+EVENT_LIST_NAME));
+		Files.deleteIfExists(Paths.get(FILE_PATH+"/"+BOOKING_LIST_NAME));
+	}
 	@Test
 	public void testCreateCustomer() {
 		k = service.createCustomer("Max Mustermann", "Musterstraße 1, 39878 Musterstadt");
@@ -60,7 +75,7 @@ public class TestService {
 		Veranstaltung v2 = service.createVeranstaltung(6, "Weihnachtsmarkt 2", "22.12.2017 19:00", 0.0, 15);
 		k = service.createCustomer("Mustermann Mayer", "Musterstraße 1, 39878 Musterstadt");
 		service.storeVeranstaltung(v2);
-		Buchung b = service.book(6, k.getName(), v2.getID(), 5);
+		Buchung b = service.book(6, k, v2, 5);
 		int freeSeats = service.freeSeats(v2.getID());
 		assertEquals(freeSeats, 10);
 	}
@@ -70,15 +85,15 @@ public class TestService {
 		Veranstaltung v3 = service.createVeranstaltung(7, "Silversterparty", "31.12.2016 19:00", 0.0, 30);
 		Kunde k2 = service.createCustomer("Marko Mustermann", "Musterstraße 5, 39878 Musterstadt");
 		service.storeVeranstaltung(v3);
-		Buchung b = service.book(7, k2.getName(), v3.getID(), 35);
+		Buchung b = service.book(7, k2, v3, 35);
 	}
 	
 	@Test
 	public void testBooking() throws Exception{
-		v = service.createVeranstaltung(5, "Weihnachtsmarkt", "20.12.2017 18:00", 0.0, 10);
+		v = service.createVeranstaltung(22, "Weihnachtsmarkt 3", "20.12.2017 18:00", 0.0, 10);
 		k = service.createCustomer("Mustermann Mayer", "Musterstraße 1, 39878 Musterstadt");
-
-		Buchung b = service.book(8, k.getName(), v.getID(), 5);
+		service.storeVeranstaltung(v);
+		Buchung b = service.book(8, k, v, 5);
 	}
 	
 	@Test
@@ -86,8 +101,8 @@ public class TestService {
 		Veranstaltung v3 = service.createVeranstaltung(19, "Rocknacht", "15.06.2017 16:00", 20.0, 250);
 		Kunde k2 = service.createCustomer("Marko Mustermann", "Musterstraße 5, 39878 Musterstadt");
 		service.storeVeranstaltung(v3);
-		Buchung b1 = service.book(15, k2.getName(), v3.getID(), 5);
-		Buchung b2 = service.book(17, k2.getName(), v3.getID(), 3);
+		Buchung b1 = service.book(15, k2, v3, 5);
+		Buchung b2 = service.book(17, k2, v3, 3);
 		assertEquals(17, b2.getID());
 		assertEquals(8, b2.getBookedSeats());
 		
@@ -95,23 +110,20 @@ public class TestService {
 	
 	@Test
 	public void testGetBookings() throws Exception{
-		v = service.createVeranstaltung(5, "Weihnachtsmarkt", "20.12.2017 18:00", 0.0, 10);
+		v = service.createVeranstaltung(100, "Neujahrsparty", "20.12.2017 18:00", 0.0, 10);
 		k = service.createCustomer("Mustermann Maria", "Musterstraße 1, 39878 Musterstadt");
-		service.book(122, k.getName(), v.getID(), 2);
+		service.storeVeranstaltung(v);
+		service.book(122, k, v, 2);
 		
-		HashMap<Integer, Buchung> bookingList= service.getBookings(k, v);
+		Buchung b = service.getBookings(k, v);
 		
-		assertNotNull(bookingList);
-		assertNotNull(bookingList);
-		if(bookingList == null)		
+		assertNotNull(b);	
 		System.out.println();
 		System.out.println("____________________________________________________________________________________");
 		System.out.printf("%3s%25s%20s%20s\n", "ID", "Kunde", "Veranstaltungs-ID", "Anzahl Sitze");
 		System.out.println("____________________________________________________________________________________");
-		for (int key : bookingList.keySet()) {
-			Buchung b = bookingList.get(key);
-			System.out.printf("%3d%25s%20s%20s\n", b.getID(), b.getKunde(), b.getVeranstaltung(), b.getBookedSeats());
-		}
+		System.out.printf("%3d%25s%20s%20s\n", b.getID(), b.getKunde(), b.getVeranstaltung(), b.getBookedSeats());
+		
 		
 		
 	}

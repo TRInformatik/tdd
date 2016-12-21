@@ -44,13 +44,8 @@ public class Veranstaltung implements Serializable {
 		return dfmt.format(dateTime);
 	}
 
-	public void book(int bookedSeats) throws Exception {
-		if(bookedSeats<=freeSeats){
-			this.freeSeats -=bookedSeats;
-		}else {
-			throw new Exception("There are too few free seats for your booking! You wanted to book "+bookedSeats+" seats, but there are only "+freeSeats+" free!");
-		}
-		
+	public void book(int bookedSeats) {
+		this.freeSeats -=bookedSeats;
 	}
 	public int getFreeSeats() {
 		return freeSeats;
@@ -71,7 +66,7 @@ public class Veranstaltung implements Serializable {
 		this.seats = seats;
 	}
 
-	private void setFreeSeats(int freeSeats) {
+	public void setFreeSeats(int freeSeats) {
 		this.freeSeats = freeSeats;
 	}
 

@@ -51,4 +51,8 @@ public class Buchung  implements Serializable {
 		this.bookedSeats = bookedSeats;
 	}
 
+	public void addSeats(int addSeats) {
+		this.bookedSeats = this.bookedSeats+addSeats;
+	}
+
 }
