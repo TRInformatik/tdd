@@ -46,14 +46,17 @@ public class TestBuchung {
 		assertEquals(v1.getID(), b.getVeranstaltung());
 		assertEquals(k.getName(), b.getKunde());
 		assertEquals(5, b.getBookedSeats());
+		assertEquals(1,b.getID());
 		
 		b.setEventID(5);
 		b.setKundenName("Horstl");
 		b.setBookedSeats(7);
+		b.setId(33);
 		
 		assertEquals(5, b.getVeranstaltung());
 		assertEquals("Horstl", b.getKunde());
 		assertEquals(7, b.getBookedSeats());
+		assertEquals(33,b.getID());
 	}
 
 }

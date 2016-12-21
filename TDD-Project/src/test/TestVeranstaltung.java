@@ -53,20 +53,25 @@ public class TestVeranstaltung {
 	
 	@Test
 	public void testSetter() throws ParseException{
+		assertEquals(1,v1.getID());
 		assertEquals("Großes Fest im kleinen Garten", v1.getTitle());
 		assertEquals(500, v1.getSeats());
 		assertEquals(13.0, v1.getTicketPrice(), DELTA);
 		assertEquals("01.01.2017 20:15", v1.getDateTime());
 		
+		v1.setId(212);
 		v1.setSeats(100);
 		v1.setTicketPrice(11.0);
 		v1.setTitle("Großes Fest/Kleiner Garten");
 		v1.setDateTime("01.01.2017 19:00");
+		v1.setFreeSeats(600);
 		
+		assertEquals(212,v1.getID());
 		assertEquals("Großes Fest/Kleiner Garten", v1.getTitle());
 		assertEquals(100, v1.getSeats());
 		assertEquals(11.0, v1.getTicketPrice(), DELTA);
 		assertEquals("01.01.2017 19:00", v1.getDateTime());
+		assertEquals(600, v1.getFreeSeats());
 	}
 	@Test
 	public void testBooking() throws Exception{
