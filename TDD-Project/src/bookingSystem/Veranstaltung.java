@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Veranstaltung implements Serializable {
 
 	static AtomicInteger nextId = new AtomicInteger();
+	
 	private int id;
 	private String title;
 	private int seats;
@@ -58,5 +59,28 @@ public class Veranstaltung implements Serializable {
 		return id;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setSeats(int seats) {
+		this.seats = seats;
+	}
+
+	private void setFreeSeats(int freeSeats) {
+		this.freeSeats = freeSeats;
+	}
+
+	public void setTicketPrice(double ticketPrice) {
+		this.ticketPrice = ticketPrice;
+	}
+
+	public void setDateTime(String dateTime) throws ParseException {
+		this.dateTime = dfmt.parse(dateTime);
+	}
 }
 

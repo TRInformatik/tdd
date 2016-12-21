@@ -75,7 +75,7 @@ public class DataManager {
 		ObjectOutputStream objectOutputStream = null;
 		try {
 			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
-			fileOutputStream = new FileOutputStream(pathToLists+"/"+BOOKING_LIST_NAME);
+			fileOutputStream = new FileOutputStream(pathToLists+"/"+EVENT_LIST_NAME);
 			objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(eventList);			
 			objectOutputStream.close();

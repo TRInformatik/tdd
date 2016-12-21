@@ -59,7 +59,7 @@ public class TestDataManager {
 	}
 	
 	@Test
-	public void testBooking() throws ParseException {
+	public void testEvent() throws ParseException {
 
 		// The customer to store
 		 Veranstaltung v = new Veranstaltung("Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
@@ -92,7 +92,7 @@ public class TestDataManager {
 	}
 	
 	@Test
-	public void testEvent() throws ParseException {
+	public void testBooking() throws ParseException {
 
 		// The customer to store
 		 Veranstaltung v = new Veranstaltung("Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);

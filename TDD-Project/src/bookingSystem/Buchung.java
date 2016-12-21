@@ -7,19 +7,19 @@ public class Buchung  implements Serializable {
 	
 	static AtomicInteger nextId = new AtomicInteger();
 	private int id;
-	private int eventID;
+	private int veranstaltungsID;
 	private String kundenName;
 	private int bookedSeats;
 	
 	public Buchung(String kunde, int veranstaltung, int seats) {
 		this.id = nextId.incrementAndGet();
-		this.eventID = veranstaltung;
+		this.veranstaltungsID = veranstaltung;
 		this.kundenName = kunde;
 		this.bookedSeats = seats;
 	}
 
 	public int getVeranstaltung() {
-		return eventID;
+		return veranstaltungsID;
 	}
 
 	public String getKunde() {
@@ -33,6 +33,22 @@ public class Buchung  implements Serializable {
 	public int getID() {
 		
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setEventID(int veranstaltungsID) {
+		this.veranstaltungsID = veranstaltungsID;
+	}
+
+	public void setKundenName(String kundenName) {
+		this.kundenName = kundenName;
+	}
+
+	public void setBookedSeats(int bookedSeats) {
+		this.bookedSeats = bookedSeats;
 	}
 
 }
