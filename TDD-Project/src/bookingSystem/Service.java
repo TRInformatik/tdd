@@ -1,5 +1,6 @@
 package bookingSystem;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 public class Service {
@@ -51,6 +52,39 @@ public class Service {
 			System.out.printf("%3d%40s%25s\n", v.getID(),v.getTitle(), v.getDateTime());
 		}
 
+	}
+
+	public Veranstaltung createVeranstaltung(String title, String date, double price, int seats) throws ParseException {
+		return new Veranstaltung(title, date, price, seats);
+	}
+
+	public void storeVeranstaltung(Veranstaltung v) {
+		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
+		eventList.put(v.getID(), v);
+		dataManager.storeEventList(eventList);
+		
+	}
+
+	public int freeSeats(int id) {
+		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
+		return eventList.get(id).getFreeSeats();
+	}
+
+	public void book(Buchung b) throws Exception {
+		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
+		int freeSeats = eventList.get(b.getVeranstaltung()).getFreeSeats();
+		if(freeSeats >=b.getBookedSeats()){
+		
+			HashMap<Integer, Buchung> bookingList = dataManager.getBookingList();
+		
+			bookingList.put(b.getID(), b);
+			dataManager.storeBookingList(bookingList);
+		
+			eventList.get(b.getVeranstaltung()).book(b.getBookedSeats());
+			dataManager.storeEventList(eventList);	
+		}else{
+			throw new Exception("Too many bookings! You ordered" + b.getBookedSeats() + " but there are ony "+freeSeats+" free!");
+		}
 	}
 	
 
