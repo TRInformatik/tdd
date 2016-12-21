@@ -14,13 +14,13 @@ public class TestKunde {
 		Kunde k;
 		k = new Kunde();
 		k.setFirstName("Christiane");
-		k.setLastName("Macke");
+		k.setname("Macke");
 		
 		String firstName = k.getFirstName();
 		assertEquals("Christiane", firstName);		
 		
-		String lastName = k.getLastName();
-		assertEquals("Macke", lastName);
+		String name = k.getname();
+		assertEquals("Macke", name);
 		
 		k = new Kunde("Hermann");
 		firstName = k.getFirstName();
@@ -28,28 +28,23 @@ public class TestKunde {
 		
 		k = new Kunde("Christian", "Vogel");
 		firstName = k.getFirstName();
-		lastName = k.getLastName();
+		name = k.getname();
 		assertEquals("Christian", firstName);
-		assertEquals("Vogel", lastName);
+		assertEquals("Vogel", name);
 			
 		String address = "Musterstraße 1, 0815 Musterstadt";
 		k.setAddress(address);
 		address = k.getAddress();
 		assertEquals("Musterstraße 1, 0815 Musterstadt", address);
 		*/
-		String firstName = "Firstname";
-		String lastName = "Lastname";
+		String name = "Egon Walter";
 		String address = "Straße 1, PLZ1, Ort";
-		Kunde k = new Kunde(firstName, lastName, address);
+		Kunde k = new Kunde(name, address);
 		
+		k.setName("Christiane Macke");
+		name = k.getName();
+		assertEquals("Christiane Macke", name);
 		
-		k.setFirstName("Christiane");
-		firstName = k.getFirstName();
-		assertEquals("Christiane", firstName);
-		
-		k.setLastName("Macke");
-		lastName = k.getLastName();
-		assertEquals("Macke", lastName);
 		
 		k.setAddress("Straße 2, PLZ2, Ort2");
 		address = k.getAddress();

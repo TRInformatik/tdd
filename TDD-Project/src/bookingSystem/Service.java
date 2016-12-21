@@ -6,8 +6,8 @@ public class Service {
 
 	private DataManager dataManager = new DataManager();
 
-	public Kunde createCustomer(String firstname, String lastname, String address) {
-		return new Kunde(firstname, lastname, address);
+	public Kunde createCustomer(String name, String address) {
+		return new Kunde(name, address);
 	}
 
 	public void storeCustomer(Kunde kunde) {
@@ -15,13 +15,13 @@ public class Service {
 			System.out.println("Customer already exists.");
 		} else {
 			HashMap<String, Kunde> customerList = dataManager.getCustomerList();
-			customerList.put(kunde.getLastName(), kunde);
+			customerList.put(kunde.getName(), kunde);
 			dataManager.storeCustomerList(customerList);
 		}
 	}
 
 	private boolean alreadyExist(Kunde kunde) {
-		return dataManager.getCustomerList().get(kunde.getLastName()) != null;
+		return dataManager.getCustomerList().get(kunde.getName()) != null;
 	}
 
 	
@@ -30,11 +30,11 @@ public class Service {
 		if(customerList == null)
 			customerList = new HashMap<String, Kunde>();
 		System.out.println("____________________________________________________________________________________");
-		System.out.printf("%10s%25s%45s\n", "Firstname", "Lastname", "Address");
+		System.out.printf("%25s%45s\n", "Name", "Address");
 		System.out.println("____________________________________________________________________________________");
 		for (String key : customerList.keySet()) {
 			Kunde k = customerList.get(key);
-			System.out.printf("%10s%25s%45s\n", k.getFirstName(), k.getLastName(), k.getAddress());
+			System.out.printf("%25s%45s\n", k.getName(),k.getAddress());
 		}
 
 	}

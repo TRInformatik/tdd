@@ -20,32 +20,31 @@ public class TestBuchung {
 	public void init() throws ParseException {
 		 v1 = new Veranstaltung("Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
 		 v2 = new Veranstaltung("Zytanien", "28.07.2017 16:00", 25.0, 1000);
-		 String firstName = "Firstname";
-		String lastName = "Lastname";
+		String name = "Max Lastname";
 		String address = "Straße 1, PLZ1, Ort";
-		k = new Kunde(firstName, lastName, address);
+		k = new Kunde(name, address);
 	}
 	
 	@Test
 	public void testDeclaration() throws ParseException {
-		Buchung b = new Buchung(k.getFirstName(), v1.getID(), 5);
+		Buchung b = new Buchung(k.getName(), v1.getID(), 5);
 		assertEquals(v1.getID(), b.getVeranstaltung());
-		assertEquals(k.getFirstName(), b.getKunde());
+		assertEquals(k.getName(), b.getKunde());
 		assertEquals(5, b.getBookedSeats());
 	}
 	
 	@Test
 	public void testID(){
-		Buchung b = new Buchung(k.getFirstName(), v1.getID(), 5);
-		Buchung b2 = new Buchung(k.getFirstName(), v2.getID(), 10);
+		Buchung b = new Buchung(k.getName(), v1.getID(), 5);
+		Buchung b2 = new Buchung(k.getName(), v2.getID(), 10);
 		assertFalse("Gleiche ID!",b.getID()==b2.getID());
 	}
 	
 	@Test
 	public void testSetter(){
-		Buchung b = new Buchung(k.getFirstName(), v1.getID(), 5);
+		Buchung b = new Buchung(k.getName(), v1.getID(), 5);
 		assertEquals(v1.getID(), b.getVeranstaltung());
-		assertEquals(k.getFirstName(), b.getKunde());
+		assertEquals(k.getName(), b.getKunde());
 		assertEquals(5, b.getBookedSeats());
 		
 		b.setEventID(5);

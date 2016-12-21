@@ -6,32 +6,23 @@ public class Kunde implements Serializable{
 
 	private static final long serialVersionUID = -4408648319826143894L;
 	
-	private String firstName, lastName, address;
+	private String name, address;
 
-	public Kunde(String firstName, String lastName, String address) {
-		setFirstName(firstName);
-		setLastName(lastName);
+	public Kunde(String name, String address) {
+		setName(name);
 		setAddress(address);
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public void setAddress(String address) {
 		this.address = address;	
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
+	public String getName() {
+		return name;
 	}
 
 	public String getAddress() {

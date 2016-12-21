@@ -27,33 +27,29 @@ public class TestDataManager {
 		
 		
 		// The customer to store
-		String firstName = "Hans";
-		String lastName = "Wurst";
+		String name = "Hans Wurst";
 		String address = "Straße 1, PLZ1, Ort";
 		
 		HashMap<String, Kunde> customerList = new HashMap<String, Kunde>();
-		customerList.put(lastName, new Kunde(firstName, lastName, address));
+		customerList.put(name, new Kunde(name, address));
 		dataManager.storeCustomerList(customerList);
 		
-		firstName = "Christiane";
-		lastName = "Macke";
+		name = "Christiane Macke";
 		address = "Neue Straße1, 4711, Köln";
-		customerList.put(lastName, new Kunde(firstName, lastName, address));
+		customerList.put(name, new Kunde(name, address));
 		dataManager.storeCustomerList(customerList);
 		assertEquals(2, customerList.size());
 		
 		
-		Kunde hans = customerList.get("Wurst");
+		Kunde hans = customerList.get("Hans Wurst");
 		assertEquals(hans.getClass(), Kunde.class);
-		assertEquals("Hans", hans.getFirstName());
-		assertEquals("Wurst", hans.getLastName());
+		assertEquals("Hans Wurst", hans.getName());
 		assertEquals("Straße 1, PLZ1, Ort", hans.getAddress());
 		
 		
-		Kunde christiane = customerList.get("Macke");
+		Kunde christiane = customerList.get("Christiane Macke");
 		assertEquals(hans.getClass(), Kunde.class);
-		assertEquals("Christiane", christiane.getFirstName());
-		assertEquals("Macke", christiane.getLastName());
+		assertEquals("Christiane Macke", christiane.getName());
 		assertEquals("Neue Straße1, 4711, Köln", christiane.getAddress());
 		
 	}
@@ -98,17 +94,17 @@ public class TestDataManager {
 		 Veranstaltung v = new Veranstaltung("Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
 		 Veranstaltung v2 = new Veranstaltung("Zytanien", "28.07.2017 16:00", 25.0, 1000);
 		 Veranstaltung v3 = new Veranstaltung("Geburtstag", "05.06.2017 18:00", 0.0, 20);
-		 String firstName = "Hans";
+		 String name = "Hans Wurst";
 		String lastName = "Wurst";
 		String address = "Straße 1, PLZ1, Ort";
-		Kunde k1 =  new Kunde(firstName, lastName, address);
-		Buchung b1 = new Buchung(k1.getFirstName(), v3.getID(), 3);
+		Kunde k1 =  new Kunde(name, address);
+		Buchung b1 = new Buchung(k1.getName(), v3.getID(), 3);
 		
 		HashMap<Integer, Buchung> bookingList = new HashMap<Integer, Buchung>();
 		bookingList.put(b1.getID(), b1);
 		dataManager.storeBookingList(bookingList);
 		
-		Buchung b2 = new Buchung(k1.getFirstName(), v2.getID(), 4);
+		Buchung b2 = new Buchung(k1.getName(), v2.getID(), 4);
 		bookingList.put(b2.getID(), b2);
 		dataManager.storeBookingList(bookingList);
 		assertEquals(2, bookingList.size());
@@ -117,14 +113,14 @@ public class TestDataManager {
 		Buchung bt1 = bookingList.get(b1.getID());
 		assertEquals(bt1.getClass(), Buchung.class);
 		assertEquals(v3.getID(), bt1.getVeranstaltung());
-		assertEquals(k1.getFirstName(), bt1.getKunde());
+		assertEquals(k1.getName(), bt1.getKunde());
 		assertEquals(b1.getBookedSeats(), bt1.getBookedSeats());
 		
 		
 		Buchung bt2 = bookingList.get(b2.getID());
 		assertEquals(bt2.getClass(), Buchung.class);
 		assertEquals(v2.getID(), bt2.getVeranstaltung());
-		assertEquals(k1.getFirstName(), bt2.getKunde());
+		assertEquals(k1.getName(), bt2.getKunde());
 		assertEquals(b2.getBookedSeats(), bt2.getBookedSeats());
 		
 		

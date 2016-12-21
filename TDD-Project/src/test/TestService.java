@@ -15,16 +15,15 @@ public class TestService {
 	
 	@Test
 	public void createCustomer() {
-		k = service.createCustomer("Max", "Mustermann", "Musterstraße 1, 39878 Musterstadt");
+		k = service.createCustomer("Max Mustermann", "Musterstraße 1, 39878 Musterstadt");
 		assertNotNull(k);
-		assertEquals("Max", k.getFirstName());
-		assertEquals("Mustermann", k.getLastName());
+		assertEquals("Max Mustermann", k.getName());
 		assertEquals("Musterstraße 1, 39878 Musterstadt", k.getAddress());
 	}
 	
 	@Test
 	public void storeCustomer(){
-		service.storeCustomer(new Kunde("Max", "Mustermann-Mayer", "Musterstraße 1, 39878 Musterstadt"));
+		service.storeCustomer(new Kunde("Mustermann Mayer", "Musterstraße 1, 39878 Musterstadt"));
 	}
 	
 	@Test

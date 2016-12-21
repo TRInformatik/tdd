@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Buchung  implements Serializable {
 	
+	private static final long serialVersionUID = 6627407231172048073L;
 	static AtomicInteger nextId = new AtomicInteger();
 	private int id;
 	private int veranstaltungsID;
