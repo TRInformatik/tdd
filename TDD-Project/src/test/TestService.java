@@ -2,14 +2,13 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.HashMap;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import bookingSystem.Buchung;
@@ -26,13 +25,20 @@ public class TestService {
 	private Kunde k;
 	private Veranstaltung v;
 
-	private Service service = new Service();
+	private static Service service = new Service();
 	
-	@Before
-	public void init(){
-		Files.deleteIfExists(Paths.get(FILE_PATH+"/"+CUSTOMER_LIST_NAME));
-		Files.deleteIfExists(Paths.get(FILE_PATH+"/"+EVENT_LIST_NAME));
-		Files.deleteIfExists(Paths.get(FILE_PATH+"/"+BOOKING_LIST_NAME));
+	@AfterClass
+	public static void init(){
+		service.printAllEvents();
+		service.printAllCustomers();
+		try {
+			Files.deleteIfExists(Paths.get(FILE_PATH+"/"+CUSTOMER_LIST_NAME));
+			Files.deleteIfExists(Paths.get(FILE_PATH+"/"+EVENT_LIST_NAME));
+			Files.deleteIfExists(Paths.get(FILE_PATH+"/"+BOOKING_LIST_NAME));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
 	}
 	@Test
 	public void testCreateCustomer() {
@@ -47,15 +53,6 @@ public class TestService {
 		service.storeCustomer(new Kunde("Mustermann Mayer", "Musterstraße 1, 39878 Musterstadt"));
 	}
 	
-	@Test
-	public void testPrintCustomers(){
-		service.printAllCustomers();
-	}
-	
-	@Test
-	public void testPrintEvents(){
-		service.printAllEvents();
-	}
 	
 	@Test
 	public void testCreateVeranstaltung() throws ParseException{
@@ -93,6 +90,7 @@ public class TestService {
 		v = service.createVeranstaltung(22, "Weihnachtsmarkt 3", "20.12.2017 18:00", 0.0, 10);
 		k = service.createCustomer("Mustermann Mayer", "Musterstraße 1, 39878 Musterstadt");
 		service.storeVeranstaltung(v);
+		
 		Buchung b = service.book(8, k, v, 5);
 	}
 	
@@ -103,6 +101,7 @@ public class TestService {
 		service.storeVeranstaltung(v3);
 		Buchung b1 = service.book(15, k2, v3, 5);
 		Buchung b2 = service.book(17, k2, v3, 3);
+		
 		assertEquals(17, b2.getID());
 		assertEquals(8, b2.getBookedSeats());
 		
@@ -117,6 +116,7 @@ public class TestService {
 		
 		Buchung b = service.getBookings(k, v);
 		
+		
 		assertNotNull(b);	
 		System.out.println();
 		System.out.println("____________________________________________________________________________________");
@@ -124,8 +124,16 @@ public class TestService {
 		System.out.println("____________________________________________________________________________________");
 		System.out.printf("%3d%25s%20s%20s\n", b.getID(), b.getKunde(), b.getVeranstaltung(), b.getBookedSeats());
 		
-		
-		
+
+	}
+	@Test
+	public void testPrintCustomers(){
+		service.printAllCustomers();
+	}
+	
+	@Test
+	public void testPrintEvents(){
+		service.printAllEvents();
 	}
 	
 }

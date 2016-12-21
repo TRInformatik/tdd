@@ -38,6 +38,9 @@ public class DataManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if(customerList==null){
+			customerList = new HashMap<String, Kunde>();
+		}
 		return customerList;
 	}
 
@@ -75,6 +78,9 @@ public class DataManager {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if(eventList==null){
+			eventList = new HashMap<Integer, Veranstaltung>();
 		}
 		return eventList;
 	}

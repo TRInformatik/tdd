@@ -73,18 +73,21 @@ public class Service {
 	public Buchung book(int id, Kunde kunde, Veranstaltung veranstaltung, int bookedSeats) throws Exception {
 		Buchung newBooking = new Buchung(id, kunde.getName(), veranstaltung.getID(), bookedSeats);
 		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
+		System.out.println(eventList.size());
 		int freeSeats = eventList.get(veranstaltung.getID()).getFreeSeats();
 		
 		if(freeSeats >= bookedSeats){
 			HashMap<Integer, Buchung> bookingList = dataManager.getBookingList();
 			Buchung b = getBookings(kunde, veranstaltung);
-			
+			if(bookingList!=null)
+				System.out.println("Vorher:"+bookingList.size());
 			int i=-1;
 			if(b != null && bookingList!=null){
 				newBooking.addSeats(b.getBookedSeats());
 				for (int keyBook : bookingList.keySet()) {
-					if(keyBook == b.getID())
+					if(keyBook == b.getID()){
 						i = keyBook;
+					}
 				}
 				if(i>=0){
 					bookingList.remove(i, bookingList.get(i));
@@ -92,7 +95,7 @@ public class Service {
 			}
 			bookingList.put(newBooking.getID(), newBooking);
 			dataManager.storeBookingList(bookingList);
-		
+			System.out.println("Nachher:"+bookingList.size());
 			eventList.get(newBooking.getVeranstaltung()).book(bookedSeats);
 			dataManager.storeEventList(eventList);	
 			
@@ -111,6 +114,7 @@ public class Service {
 				if(b.getKunde().equals(k.getName()) && (b.getVeranstaltung()==v.getID()))
 					return b;
 			}
+			
 		}
 		return null;
 	}
