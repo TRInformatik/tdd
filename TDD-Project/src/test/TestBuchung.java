@@ -18,8 +18,8 @@ public class TestBuchung {
 	private Kunde k;
 	@Before 
 	public void init() throws ParseException {
-		 v1 = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
-		 v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000);
+		 v1 = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500, "email");
+		 v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000, "email");
 		String name = "Max Lastname";
 		String address = "Straße 1, PLZ1, Ort";
 		k = new Kunde(name, address);

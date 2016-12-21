@@ -55,9 +55,9 @@ public class TestDataManager {
 	public void testEvent() throws ParseException {
 
 		// The customer to store
-		Veranstaltung v = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
-		Veranstaltung v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000);
-		Veranstaltung v3 = new Veranstaltung(3, "Geburtstag", "05.06.2017 18:00", 0.0, 20);
+		Veranstaltung v = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500, "email");
+		Veranstaltung v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000, "email");
+		Veranstaltung v3 = new Veranstaltung(3, "Geburtstag", "05.06.2017 18:00", 0.0, 20, "email");
 
 		HashMap<Integer, Veranstaltung> eventList = new HashMap<Integer, Veranstaltung>();
 		eventList.put(v.getID(), v);
@@ -84,9 +84,9 @@ public class TestDataManager {
 	@Test
 	public void testBooking() throws ParseException {
 		// The customer to store
-		Veranstaltung v = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
-		Veranstaltung v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000);
-		Veranstaltung v3 = new Veranstaltung(3, "Geburtstag", "05.06.2017 18:00", 0.0, 20);
+		Veranstaltung v = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500, "email");
+		Veranstaltung v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000, "email");
+		Veranstaltung v3 = new Veranstaltung(3, "Geburtstag", "05.06.2017 18:00", 0.0, 20, "email");
 		String name = "Hans Wurst";
 		String lastName = "Wurst";
 		String address = "Straße 1, PLZ1, Ort";

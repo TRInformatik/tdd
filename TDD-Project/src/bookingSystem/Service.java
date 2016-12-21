@@ -3,6 +3,9 @@ package bookingSystem;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import org.mockito.Mock;
+import org.mockito.Mockito;
+
 public class Service {
 
 	private DataManager dataManager = new DataManager();
@@ -54,8 +57,8 @@ public class Service {
 
 	}
 
-	public Veranstaltung createVeranstaltung(int id, String title, String date, double price, int seats) throws ParseException {
-		return new Veranstaltung(id, title, date, price, seats);
+	public Veranstaltung createVeranstaltung(int id, String title, String date, double price, int seats, String email) throws ParseException {
+		return new Veranstaltung(id, title, date, price, seats, email);
 	}
 
 	public void storeVeranstaltung(Veranstaltung v) {
@@ -94,6 +97,10 @@ public class Service {
 				}
 			}
 			bookingList.put(newBooking.getID(), newBooking);
+			
+			checkBigOrder(Mockito.mock(EMailService.class),newBooking, veranstaltung);			
+			
+			
 			dataManager.storeBookingList(bookingList);
 			System.out.println("Nachher:"+bookingList.size());
 			eventList.get(newBooking.getVeranstaltung()).book(bookedSeats);
@@ -103,6 +110,12 @@ public class Service {
 			throw new Exception("Too many bookings! You ordered" + newBooking.getBookedSeats() + " but there are ony "+freeSeats+" free!");
 		}
 		return newBooking;
+	}
+
+	public void checkBigOrder(EMailService mailService, Buchung newBooking, Veranstaltung veranstaltung) {
+		if(newBooking.getBookedSeats()>(veranstaltung.getSeats()/10)){
+			mailService.isInformed(veranstaltung.getEmail(), newBooking);
+		}
 	}
 
 	public Buchung getBookings(Kunde k, Veranstaltung v) {
@@ -118,6 +131,4 @@ public class Service {
 		}
 		return null;
 	}
-	
-
 }
