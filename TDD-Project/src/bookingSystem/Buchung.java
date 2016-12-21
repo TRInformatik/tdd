@@ -6,14 +6,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Buchung  implements Serializable {
 	
 	private static final long serialVersionUID = 6627407231172048073L;
-	static AtomicInteger nextId = new AtomicInteger();
 	private int id;
 	private int veranstaltungsID;
 	private String kundenName;
 	private int bookedSeats;
 	
-	public Buchung(String kunde, int veranstaltung, int seats) {
-		this.id = nextId.incrementAndGet();
+	public Buchung(int id, String kunde, int veranstaltung, int seats) {
+		this.id = id;
 		this.veranstaltungsID = veranstaltung;
 		this.kundenName = kunde;
 		this.bookedSeats = seats;

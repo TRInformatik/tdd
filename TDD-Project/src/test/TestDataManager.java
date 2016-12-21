@@ -55,9 +55,9 @@ public class TestDataManager {
 	public void testEvent() throws ParseException {
 
 		// The customer to store
-		Veranstaltung v = new Veranstaltung("Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
-		Veranstaltung v2 = new Veranstaltung("Zytanien", "28.07.2017 16:00", 25.0, 1000);
-		Veranstaltung v3 = new Veranstaltung("Geburtstag", "05.06.2017 18:00", 0.0, 20);
+		Veranstaltung v = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
+		Veranstaltung v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000);
+		Veranstaltung v3 = new Veranstaltung(3, "Geburtstag", "05.06.2017 18:00", 0.0, 20);
 
 		HashMap<Integer, Veranstaltung> eventList = new HashMap<Integer, Veranstaltung>();
 		eventList.put(v.getID(), v);
@@ -84,20 +84,20 @@ public class TestDataManager {
 	@Test
 	public void testBooking() throws ParseException {
 		// The customer to store
-		Veranstaltung v = new Veranstaltung("Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
-		Veranstaltung v2 = new Veranstaltung("Zytanien", "28.07.2017 16:00", 25.0, 1000);
-		Veranstaltung v3 = new Veranstaltung("Geburtstag", "05.06.2017 18:00", 0.0, 20);
+		Veranstaltung v = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500);
+		Veranstaltung v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000);
+		Veranstaltung v3 = new Veranstaltung(3, "Geburtstag", "05.06.2017 18:00", 0.0, 20);
 		String name = "Hans Wurst";
 		String lastName = "Wurst";
 		String address = "Straße 1, PLZ1, Ort";
 		Kunde k1 = new Kunde(name, address);
-		Buchung b1 = new Buchung(k1.getName(), v3.getID(), 3);
+		Buchung b1 = new Buchung(3, k1.getName(), v3.getID(), 3);
 
 		HashMap<Integer, Buchung> bookingList = new HashMap<Integer, Buchung>();
 		bookingList.put(b1.getID(), b1);
 		dataManager.storeBookingList(bookingList);
 
-		Buchung b2 = new Buchung(k1.getName(), v2.getID(), 4);
+		Buchung b2 = new Buchung(4, k1.getName(), v2.getID(), 4);
 		bookingList.put(b2.getID(), b2);
 		dataManager.storeBookingList(bookingList);
 		assertEquals(2, bookingList.size());
