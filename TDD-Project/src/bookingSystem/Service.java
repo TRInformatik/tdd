@@ -70,21 +70,35 @@ public class Service {
 		return eventList.get(id).getFreeSeats();
 	}
 
-	public void book(Buchung b) throws Exception {
+	public Buchung book(int id, String kundenName, int veranstaltungsID, int bookedSeats) throws Exception {
+		Buchung newBooking = new Buchung(id, kundenName, veranstaltungsID, bookedSeats);
 		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
-		int freeSeats = eventList.get(b.getVeranstaltung()).getFreeSeats();
-		if(freeSeats >=b.getBookedSeats()){
-		
+		int freeSeats = eventList.get(newBooking.getVeranstaltung()).getFreeSeats();
+		if(freeSeats >=newBooking.getBookedSeats()){
+			
 			HashMap<Integer, Buchung> bookingList = dataManager.getBookingList();
-		
-			bookingList.put(b.getID(), b);
+			
+			bookingList.put(newBooking.getID(), newBooking);
 			dataManager.storeBookingList(bookingList);
 		
-			eventList.get(b.getVeranstaltung()).book(b.getBookedSeats());
+			eventList.get(newBooking.getVeranstaltung()).book(newBooking.getBookedSeats());
 			dataManager.storeEventList(eventList);	
 		}else{
-			throw new Exception("Too many bookings! You ordered" + b.getBookedSeats() + " but there are ony "+freeSeats+" free!");
+			throw new Exception("Too many bookings! You ordered" + newBooking.getBookedSeats() + " but there are ony "+freeSeats+" free!");
 		}
+		return newBooking;
+	}
+
+	public HashMap<Integer, Buchung> getBookings(Kunde k, Veranstaltung v) {
+		HashMap<Integer, Buchung> bookingList = dataManager.getBookingList();
+		HashMap<Integer, Buchung> smallList = new HashMap<Integer, Buchung>();
+		Buchung b;
+		for(int key : bookingList.keySet()){
+			b = bookingList.get(key);
+			if(b.getKunde().equals(k.getName()) && b.getVeranstaltung()==v.getID())
+				smallList.put(key, b);
+		}
+		return smallList;
 	}
 	
 
