@@ -10,120 +10,113 @@ public class Service {
 
 	private DataManager dataManager = new DataManager();
 
-	public Kunde createCustomer(String name, String address) {
-		return new Kunde(name, address);
+	public Kunde createKunde(String name, String addresse) {
+		return new Kunde(name, addresse);
 	}
 
-	public void storeCustomer(Kunde kunde) {
+	public void storeKunde(Kunde kunde) {
 		if (alreadyExist(kunde)) {
 			System.out.println("Customer already exists.");
 		} else {
-			HashMap<String, Kunde> customerList = dataManager.getCustomerList();
-			customerList.put(kunde.getName(), kunde);
-			dataManager.storeCustomerList(customerList);
+			HashMap<String, Kunde> kundenList = dataManager.getKundenList();
+			kundenList.put(kunde.getName(), kunde);
+			dataManager.storeKundenList(kundenList);
 		}
 	}
 
 	private boolean alreadyExist(Kunde kunde) {
-		return dataManager.getCustomerList().get(kunde.getName()) != null;
+		return dataManager.getKundenList().get(kunde.getName()) != null;
 	}
 
 	
-	public void printAllCustomers() {
-		HashMap<String, Kunde> customerList = dataManager.getCustomerList();
-		if(customerList == null)
-			customerList = new HashMap<String, Kunde>();
+	public void printAllKunden() {
+		HashMap<String, Kunde> kundenList = dataManager.getKundenList();
+		if(kundenList == null)
+			kundenList = new HashMap<String, Kunde>();
 		System.out.println("____________________________________________________________________________________");
 		System.out.printf("%25s%45s\n", "Name", "Address");
 		System.out.println("____________________________________________________________________________________");
-		for (String key : customerList.keySet()) {
-			Kunde k = customerList.get(key);
-			System.out.printf("%25s%45s\n", k.getName(),k.getAddress());
+		for (String key : kundenList.keySet()) {
+			Kunde k = kundenList.get(key);
+			System.out.printf("%25s%45s\n", k.getName(),k.getAddresse());
 		}
 
 	}
 	
-	public void printAllEvents() {
-		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
-		if(eventList == null)
-			eventList = new HashMap<Integer, Veranstaltung>();
+	public void printAllVeranstaltungen() {
+		HashMap<Integer, Veranstaltung> veranstaltungenList = dataManager.getVeranstaltungenList();
+		if(veranstaltungenList == null)
+			veranstaltungenList = new HashMap<Integer, Veranstaltung>();
 		System.out.println("____________________________________________________________________________________");
 		System.out.printf("%3s%40s%25s\n", "ID", "Title", "Date and Time");
 		System.out.println("____________________________________________________________________________________");
-		for (int key : eventList.keySet()) {
-			Veranstaltung v = eventList.get(key);
-			System.out.printf("%3d%40s%25s\n", v.getID(),v.getTitle(), v.getDateTime());
+		for (int key : veranstaltungenList.keySet()) {
+			Veranstaltung v = veranstaltungenList.get(key);
+			System.out.printf("%3d%40s%25s\n", v.getID(),v.getTitel(), v.getDatumUhrzeit());
 		}
 
 	}
 
-	public Veranstaltung createVeranstaltung(int id, String title, String date, double price, int seats, String email) throws ParseException {
-		return new Veranstaltung(id, title, date, price, seats, email);
+	public Veranstaltung createVeranstaltung(int id, String titel, String datum, double preis, int sitze, String email) throws ParseException {
+		return new Veranstaltung(id, titel, datum, preis, sitze, email);
 	}
 
 	public void storeVeranstaltung(Veranstaltung v) {
-		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
-		eventList.put(v.getID(), v);
-		dataManager.storeEventList(eventList);
+		HashMap<Integer, Veranstaltung> veranstaltungenList = dataManager.getVeranstaltungenList();
+		veranstaltungenList.put(v.getID(), v);
+		dataManager.storeVeranstaltungenList(veranstaltungenList);
 		
 	}
 
-	public int freeSeats(int id) {
-		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
-		return eventList.get(id).getFreeSeats();
+	public int checkFreieSitze(int id) {
+		HashMap<Integer, Veranstaltung> veranstaltungenList = dataManager.getVeranstaltungenList();
+		return veranstaltungenList.get(id).getFreieSitze();
 	}
 
-	public Buchung book(int id, Kunde kunde, Veranstaltung veranstaltung, int bookedSeats) throws Exception {
-		Buchung newBooking = new Buchung(id, kunde.getName(), veranstaltung.getID(), bookedSeats);
-		HashMap<Integer, Veranstaltung> eventList = dataManager.getEventList();
-		System.out.println(eventList.size());
-		int freeSeats = eventList.get(veranstaltung.getID()).getFreeSeats();
-		
-		if(freeSeats >= bookedSeats){
-			HashMap<Integer, Buchung> bookingList = dataManager.getBookingList();
-			Buchung b = getBookings(kunde, veranstaltung);
-			if(bookingList!=null)
-				System.out.println("Vorher:"+bookingList.size());
+	public Buchung book(int id, Kunde kunde, Veranstaltung veranstaltung, int gebuchteSitze) throws Exception {
+		Buchung newBuchung = new Buchung(id, kunde.getName(), veranstaltung.getID(), gebuchteSitze);
+		HashMap<Integer, Veranstaltung> veranstaltungenList = dataManager.getVeranstaltungenList();
+		int freieSitze = veranstaltungenList.get(veranstaltung.getID()).getFreieSitze();
+		if(freieSitze >= gebuchteSitze){
+			HashMap<Integer, Buchung> buchungenList = dataManager.getBuchungenList();
+			Buchung b = getBuchungen(kunde, veranstaltung);
 			int i=-1;
-			if(b != null && bookingList!=null){
-				newBooking.addSeats(b.getBookedSeats());
-				for (int keyBook : bookingList.keySet()) {
+			if(b != null && buchungenList!=null){
+				newBuchung.addGebuchteSitze(b.getGebuchteSitze());
+				for (int keyBook : buchungenList.keySet()) {
 					if(keyBook == b.getID()){
 						i = keyBook;
 					}
 				}
 				if(i>=0){
-					bookingList.remove(i, bookingList.get(i));
+					buchungenList.remove(i, buchungenList.get(i));
 				}
 			}
-			bookingList.put(newBooking.getID(), newBooking);
+			buchungenList.put(newBuchung.getID(), newBuchung);
 			
-			checkBigOrder(Mockito.mock(EMailService.class),newBooking, veranstaltung);			
-			
-			
-			dataManager.storeBookingList(bookingList);
-			System.out.println("Nachher:"+bookingList.size());
-			eventList.get(newBooking.getVeranstaltung()).book(bookedSeats);
-			dataManager.storeEventList(eventList);	
-			
+			checkBigOrder(Mockito.mock(EMailService.class),newBuchung, veranstaltung);			
+
+			dataManager.storeBuchungenList(buchungenList);
+			veranstaltungenList.get(newBuchung.getVeranstaltung()).book(gebuchteSitze);
+			dataManager.storeVeranstaltungenList(veranstaltungenList);			
 		}else{
-			throw new Exception("Too many bookings! You ordered" + newBooking.getBookedSeats() + " but there are ony "+freeSeats+" free!");
+			throw new Exception("Too many bookings! You ordered " + newBuchung.getGebuchteSitze() + " but there are ony "+freieSitze+" free!");
 		}
-		return newBooking;
+		return newBuchung;
 	}
 
-	public void checkBigOrder(EMailService mailService, Buchung newBooking, Veranstaltung veranstaltung) {
-		if(newBooking.getBookedSeats()>(veranstaltung.getSeats()/10)){
-			mailService.isInformed(veranstaltung.getEmail(), newBooking);
+	public void checkBigOrder(EMailService mailService, Buchung newBuchung, Veranstaltung veranstaltung) {
+		if(newBuchung.getGebuchteSitze()>(veranstaltung.getGesamtzahlSitze()/10)){
+			mailService.isInformed(veranstaltung.getEmail(), newBuchung);
 		}
 	}
 
-	public Buchung getBookings(Kunde k, Veranstaltung v) {
-		HashMap<Integer, Buchung> bookingList = dataManager.getBookingList();
+	public Buchung getBuchungen(Kunde k, Veranstaltung v) {
+		HashMap<Integer, Buchung> buchungenList = dataManager.getBuchungenList();
 		Buchung b;
-		if(bookingList!=null){
-			for(int keyListing : bookingList.keySet()){
-				b = bookingList.get(keyListing);
+		if(buchungenList!=null){
+			for(int keyListing : buchungenList.keySet()){
+				b = buchungenList.get(keyListing);
 				if(b.getKunde().equals(k.getName()) && (b.getVeranstaltung()==v.getID()))
 					return b;
 			}

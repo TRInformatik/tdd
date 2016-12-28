@@ -12,79 +12,79 @@ public class Veranstaltung implements Serializable {
 	private static final long serialVersionUID = -3862786948644285639L;
 
 	private int id;
-	private String title, email;
-	private int seats;
-	private int freeSeats;
-	private double ticketPrice;
+	private String titel, email;
+	private int gesamtzahlSitze;
+	private int freieSitze;
+	private double kartenPreis;
 	private DateFormat dfmt = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-	private Date dateTime;
+	private Date datumUhrzeit;
 
-	public Veranstaltung(int id, String title, String dateTime, double ticketPrice, int seats, String email)
+	public Veranstaltung(int id, String titel, String datumUhrzeit, double kartenPreis, int gesamtzahlSitze, String email)
 			throws ParseException {
 		this.id = id;
-		this.title = title;
-		this.dateTime = dfmt.parse(dateTime);
-		this.ticketPrice = ticketPrice;
-		this.seats = seats;
-		this.freeSeats = this.seats;
+		this.titel = titel;
+		this.datumUhrzeit = dfmt.parse(datumUhrzeit);
+		this.kartenPreis = kartenPreis;
+		this.gesamtzahlSitze = gesamtzahlSitze;
+		this.freieSitze = this.gesamtzahlSitze;
 		this.setEmail(email);
 
 	}
 	
-	public String getTitle() {
-		return title;
+	public String getTitel() {
+		return titel;
 	}
 
-	public int getSeats() {
-		return seats;
+	public int getGesamtzahlSitze() {
+		return gesamtzahlSitze;
 	}
 
-	public double getTicketPrice() {
-		return ticketPrice;
+	public double getKartenPreis() {
+		return kartenPreis;
 	}
 
-	public String getDateTime() {
-		return dfmt.format(dateTime);
+	public String getDatumUhrzeit() {
+		return dfmt.format(datumUhrzeit);
 	}
 
 	public void book(int bookedSeats) {
-		this.freeSeats -= bookedSeats;
+		this.freieSitze -= bookedSeats;
 	}
 
-	public int getFreeSeats() {
-		return freeSeats;
+	public int getFreieSitze() {
+		return freieSitze;
 	}
 
 	public int getID() {
 		return id;
 	}
-
+	
+	public String getEmail() {
+		return email;
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTitel(String titel) {
+		this.titel = titel;
 	}
 
-	public void setSeats(int seats) {
-		this.seats = seats;
+	public void setGesamtzahlSitze(int gesamtzahlSitze) {
+		this.gesamtzahlSitze = gesamtzahlSitze;
 	}
 
-	public void setFreeSeats(int freeSeats) {
-		this.freeSeats = freeSeats;
+	public void setFreieSitze(int freieSitze) {
+		this.freieSitze = freieSitze;
 	}
 
-	public void setTicketPrice(double ticketPrice) {
-		this.ticketPrice = ticketPrice;
+	public void setKartenPreis(double kartenPreis) {
+		this.kartenPreis = kartenPreis;
 	}
 
-	public void setDateTime(String dateTime) throws ParseException {
-		this.dateTime = dfmt.parse(dateTime);
-	}
-
-	public String getEmail() {
-		return email;
+	public void setDatumUhrzeit(String datumUhrzeit) throws ParseException {
+		this.datumUhrzeit = dfmt.parse(datumUhrzeit);
 	}
 
 	public void setEmail(String email) {

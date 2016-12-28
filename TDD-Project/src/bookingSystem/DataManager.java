@@ -9,49 +9,49 @@ import java.util.HashMap;
 
 public class DataManager {
 	private static final String FILE_PATH = "src/DataFiles/";
-	private static final String CUSTOMER_LIST_NAME = "Kunden";
-	private static final String EVENT_LIST_NAME = "Veranstaltung";
-	private static final String BOOKING_LIST_NAME = "Buchung";
+	private static final String KUNDE_LIST_NAME = "Kunden";
+	private static final String VERANSTALTUNG_LIST_NAME = "Veranstaltung";
+	private static final String BUCHUNG_LIST_NAME = "Buchung";
 
 	public DataManager() {
-		getCustomerList();//
+		getKundenList();//
 	}
 
 	@SuppressWarnings("unchecked")
-	public HashMap<String, Kunde> getCustomerList() {
-		HashMap<String, Kunde> customerList = null;
+	public HashMap<String, Kunde> getKundenList() {
+		HashMap<String, Kunde> kundenList = null;
 		FileInputStream fileInputStream = null;
 		ObjectInputStream objectInputStream = null;
 
 		try {
 			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
 			// check if file exists
-			if (!fileExists(CUSTOMER_LIST_NAME)) {
-				createNewFile(CUSTOMER_LIST_NAME);
+			if (!fileExists(KUNDE_LIST_NAME)) {
+				createNewFile(KUNDE_LIST_NAME);
 			}
-			fileInputStream = new FileInputStream(pathToLists + "/" + CUSTOMER_LIST_NAME);
+			fileInputStream = new FileInputStream(pathToLists + "/" + KUNDE_LIST_NAME);
 			objectInputStream = new ObjectInputStream(fileInputStream);
-			customerList = (HashMap<String, Kunde>) objectInputStream.readObject();
+			kundenList = (HashMap<String, Kunde>) objectInputStream.readObject();
 			objectInputStream.close();
 			fileInputStream.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(customerList==null){
-			customerList = new HashMap<String, Kunde>();
+		if(kundenList==null){
+			kundenList = new HashMap<String, Kunde>();
 		}
-		return customerList;
+		return kundenList;
 	}
 
-	public void storeCustomerList(HashMap<String, Kunde> customerList) {
+	public void storeKundenList(HashMap<String, Kunde> kundenList) {
 		FileOutputStream fileOutputStream = null;
 		ObjectOutputStream objectOutputStream = null;
 		try {
 			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
-			fileOutputStream = new FileOutputStream(pathToLists + "/" + CUSTOMER_LIST_NAME);
+			fileOutputStream = new FileOutputStream(pathToLists + "/" + KUNDE_LIST_NAME);
 			objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(customerList);
+			objectOutputStream.writeObject(kundenList);
 			objectOutputStream.close();
 			fileOutputStream.close();
 		} catch (Exception e) {
@@ -60,39 +60,39 @@ public class DataManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	public HashMap<Integer, Veranstaltung> getEventList() {
-		HashMap<Integer, Veranstaltung> eventList = null;
+	public HashMap<Integer, Veranstaltung> getVeranstaltungenList() {
+		HashMap<Integer, Veranstaltung> veranstaltungList = null;
 		FileInputStream fileInputStream = null;
 		ObjectInputStream objectInputStream = null;
 		try {
 			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
 			// check if file exists
-			if (!fileExists(EVENT_LIST_NAME)) {
-				createNewFile(EVENT_LIST_NAME);
+			if (!fileExists(VERANSTALTUNG_LIST_NAME)) {
+				createNewFile(VERANSTALTUNG_LIST_NAME);
 			}
-			fileInputStream = new FileInputStream(pathToLists + "/" + EVENT_LIST_NAME);
+			fileInputStream = new FileInputStream(pathToLists + "/" + VERANSTALTUNG_LIST_NAME);
 			objectInputStream = new ObjectInputStream(fileInputStream);
-			eventList = (HashMap<Integer, Veranstaltung>) objectInputStream.readObject();
+			veranstaltungList = (HashMap<Integer, Veranstaltung>) objectInputStream.readObject();
 			objectInputStream.close();
 			fileInputStream.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(eventList==null){
-			eventList = new HashMap<Integer, Veranstaltung>();
+		if(veranstaltungList==null){
+			veranstaltungList = new HashMap<Integer, Veranstaltung>();
 		}
-		return eventList;
+		return veranstaltungList;
 	}
 
-	public void storeEventList(HashMap<Integer, Veranstaltung> eventList) {
+	public void storeVeranstaltungenList(HashMap<Integer, Veranstaltung> veranstaltungList) {
 		FileOutputStream fileOutputStream = null;
 		ObjectOutputStream objectOutputStream = null;
 		try {
 			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
-			fileOutputStream = new FileOutputStream(pathToLists + "/" + EVENT_LIST_NAME);
+			fileOutputStream = new FileOutputStream(pathToLists + "/" + VERANSTALTUNG_LIST_NAME);
 			objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(eventList);
+			objectOutputStream.writeObject(veranstaltungList);
 			objectOutputStream.close();
 			fileOutputStream.close();
 		} catch (Exception e) {
@@ -101,19 +101,19 @@ public class DataManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	public HashMap<Integer, Buchung> getBookingList() {
-		HashMap<Integer, Buchung> bookingList = null;
+	public HashMap<Integer, Buchung> getBuchungenList() {
+		HashMap<Integer, Buchung> buchungenList = null;
 		FileInputStream fileInputStream = null;
 		ObjectInputStream objectInputStream = null;
 		try {
 			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
 			// check if file exists
-			if (!fileExists(BOOKING_LIST_NAME)) {
-				createNewFile(BOOKING_LIST_NAME);
+			if (!fileExists(BUCHUNG_LIST_NAME)) {
+				createNewFile(BUCHUNG_LIST_NAME);
 			}else{
-				fileInputStream = new FileInputStream(pathToLists + "/" + BOOKING_LIST_NAME);
+				fileInputStream = new FileInputStream(pathToLists + "/" + BUCHUNG_LIST_NAME);
 				objectInputStream = new ObjectInputStream(fileInputStream);
-				bookingList = (HashMap<Integer, Buchung>) objectInputStream.readObject();
+				buchungenList = (HashMap<Integer, Buchung>) objectInputStream.readObject();
 				objectInputStream.close();
 				fileInputStream.close();
 			}
@@ -121,20 +121,20 @@ public class DataManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(bookingList==null){
-			bookingList = new HashMap<Integer, Buchung>();
+		if(buchungenList==null){
+			buchungenList = new HashMap<Integer, Buchung>();
 		}
-		return bookingList;
+		return buchungenList;
 	}
 
-	public void storeBookingList(HashMap<Integer, Buchung> bookingList) {
+	public void storeBuchungenList(HashMap<Integer, Buchung> buchungenList) {
 		FileOutputStream fileOutputStream = null;
 		ObjectOutputStream objectOutputStream = null;
 		try {
 			String pathToLists = new File(FILE_PATH).getCanonicalPath().toString();
-			fileOutputStream = new FileOutputStream(pathToLists + "/" + BOOKING_LIST_NAME);
+			fileOutputStream = new FileOutputStream(pathToLists + "/" + BUCHUNG_LIST_NAME);
 			objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(bookingList);
+			objectOutputStream.writeObject(buchungenList);
 			objectOutputStream.close();
 			fileOutputStream.close();
 		} catch (Exception e) {

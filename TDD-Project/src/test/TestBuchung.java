@@ -18,11 +18,11 @@ public class TestBuchung {
 	private Kunde k;
 	@Before 
 	public void init() throws ParseException {
-		 v1 = new Veranstaltung(1, "Großes Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500, "email");
+		 v1 = new Veranstaltung(1, "Grosses Fest im kleinen Garten", "01.01.2017 20:15", 13.0, 500, "email");
 		 v2 = new Veranstaltung(2, "Zytanien", "28.07.2017 16:00", 25.0, 1000, "email");
 		String name = "Max Lastname";
-		String address = "Straße 1, PLZ1, Ort";
-		k = new Kunde(name, address);
+		String addresse = "Strasse 1, PLZ1, Ort";
+		k = new Kunde(name, addresse);
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class TestBuchung {
 		Buchung b = new Buchung(1, k.getName(), v1.getID(), 5);
 		assertEquals(v1.getID(), b.getVeranstaltung());
 		assertEquals(k.getName(), b.getKunde());
-		assertEquals(5, b.getBookedSeats());
+		assertEquals(5, b.getGebuchteSitze());
 	}
 	
 	@Test
@@ -45,17 +45,17 @@ public class TestBuchung {
 		Buchung b = new Buchung(1, k.getName(), v1.getID(), 5);
 		assertEquals(v1.getID(), b.getVeranstaltung());
 		assertEquals(k.getName(), b.getKunde());
-		assertEquals(5, b.getBookedSeats());
+		assertEquals(5, b.getGebuchteSitze());
 		assertEquals(1,b.getID());
 		
-		b.setEventID(5);
+		b.setVeranstaltungsID(5);
 		b.setKundenName("Horstl");
-		b.setBookedSeats(7);
+		b.setGebuchteSitze(7);
 		b.setId(33);
 		
 		assertEquals(5, b.getVeranstaltung());
 		assertEquals("Horstl", b.getKunde());
-		assertEquals(7, b.getBookedSeats());
+		assertEquals(7, b.getGebuchteSitze());
 		assertEquals(33,b.getID());
 	}
 

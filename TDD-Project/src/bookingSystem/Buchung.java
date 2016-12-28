@@ -9,13 +9,13 @@ public class Buchung  implements Serializable {
 	private int id;
 	private int veranstaltungsID;
 	private String kundenName;
-	private int bookedSeats;
+	private int gebuchteSitze;
 	
 	public Buchung(int id, String kunde, int veranstaltung, int seats) {
 		this.id = id;
 		this.veranstaltungsID = veranstaltung;
 		this.kundenName = kunde;
-		this.bookedSeats = seats;
+		this.gebuchteSitze = seats;
 	}
 
 	public int getVeranstaltung() {
@@ -26,8 +26,8 @@ public class Buchung  implements Serializable {
 		return kundenName;
 	}
 
-	public int getBookedSeats() {
-		return bookedSeats;
+	public int getGebuchteSitze() {
+		return gebuchteSitze;
 	}
 
 	public int getID() {
@@ -39,7 +39,7 @@ public class Buchung  implements Serializable {
 		this.id = id;
 	}
 
-	public void setEventID(int veranstaltungsID) {
+	public void setVeranstaltungsID(int veranstaltungsID) {
 		this.veranstaltungsID = veranstaltungsID;
 	}
 
@@ -47,12 +47,12 @@ public class Buchung  implements Serializable {
 		this.kundenName = kundenName;
 	}
 
-	public void setBookedSeats(int bookedSeats) {
-		this.bookedSeats = bookedSeats;
+	public void setGebuchteSitze(int gebuchteSitze) {
+		this.gebuchteSitze = gebuchteSitze;
 	}
 
-	public void addSeats(int addSeats) {
-		this.bookedSeats = this.bookedSeats+addSeats;
+	public void addGebuchteSitze(int addGebuchteSitze) {
+		this.gebuchteSitze = this.gebuchteSitze+addGebuchteSitze;
 	}
 
 }
